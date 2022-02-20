@@ -12,7 +12,7 @@ bucket = s3.Bucket('my-bucket',
                    #     index_document="index.html",
                    )
 
-# # FileAsset class will assign the content of the file to a new BucketOject
+# FileAsset class will assign the content of the file to a new BucketOject
 # bucketObject = s3.BucketObject(
 #     'index.html',
 #     # public-read so that it can be accessed anonymously over the Internet
