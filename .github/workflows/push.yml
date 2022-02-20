@@ -19,7 +19,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - run: pip install -r requirements.txt
-      - run: python quickstart/tests/unit_tests.py
+      - run: python -m quickstart.tests.unit_tests
       - uses: pulumi/actions@v3
         with:
           command: up
