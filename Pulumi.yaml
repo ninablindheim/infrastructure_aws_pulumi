@@ -1,0 +1,6 @@
+name: portfolio
+runtime:
+  name: python
+  options:
+    virtualenv: venv
+description: simple aws-pulumi infratructure
