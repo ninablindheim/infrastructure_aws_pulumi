@@ -1,5 +1,3 @@
-import pulumi
+from infra import create_bucket
 
-import infra
-
-pulumi.export('bucket_name', infra.bucket.id)
+bucket = create_bucket()
