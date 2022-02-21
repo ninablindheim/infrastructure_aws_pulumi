@@ -1,6 +1,7 @@
 import os
 import unittest
 
+import boto3
 from pulumi import automation as auto
 
 import infra
@@ -23,6 +24,7 @@ class TestS3(unittest.TestCase):
         # Configure test stack output
         cls.stack.up(on_output=print)
         cls.outputs = cls.stack.outputs()
+        cls.s3 = boto3.resource('s3')
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -39,6 +41,12 @@ class TestS3(unittest.TestCase):
     def test_output_region(self):
         output_region = self.outputs.get(infra.OUTPUT_KEY_REGION)
         assert output_region.value == infra.REGION_NAME
+
+    # Test that the bucket exists.
+    def test_bucket_existence(self):
+        output_name = self.outputs.get(infra.OUTPUT_KEY_BUCKET_NAME).value
+        bucket_names = [bucket.name for bucket in self.s3.buckets.all()]
+        assert output_name in bucket_names
 
 
 if __name__ == '__main__':
