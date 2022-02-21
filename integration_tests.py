@@ -29,10 +29,16 @@ class TestS3(unittest.TestCase):
         cls.stack.destroy(on_output=print)
         cls.stack.workspace.remove_stack(infra.STACK_NAME)
 
+    # Test that the output name matches the bucket name.
+    def test_output_name(self):
+        output_name = self.outputs.get(infra.OUTPUT_KEY_BUCKET_NAME)
+        stripped_name = '-'.join(output_name.value.split('-')[:-1])
+        assert stripped_name == infra.BUCKET_NAME
+
     # Test that the output region matches the region name.
     def test_output_region(self):
         output_region = self.outputs.get(infra.OUTPUT_KEY_REGION)
-        assert infra.REGION_NAME == output_region.value
+        assert output_region.value == infra.REGION_NAME
 
 
 if __name__ == '__main__':
