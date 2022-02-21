@@ -21,6 +21,7 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python -m unittest unit_tests.py
       - run: python -m unittest integration_tests.py
+        uses: docker://pulumi/actions:v1.0.0
         with:
           pulumi-access-token: ${{ secrets.PULUMI_ACCESS_TOKEN }}
       - uses: pulumi/actions@v3
