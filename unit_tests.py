@@ -38,3 +38,14 @@ class TestingWithMocks(unittest.TestCase):
             assert bucket_name == infra.BUCKET_NAME
 
         return pulumi.Output.all(bucket.urn).apply(check_bucket_urn)
+
+    # Test that the bucket has a website property.
+    @pulumi.runtime.test
+    def test_bucket_website_property(self) -> pulumi.Output:
+        bucket = infra.create_bucket()
+
+        def check_website_property(args: list) -> None:
+            website, = args
+            assert website is not None
+
+        return pulumi.Output.all(bucket.website).apply(check_website_property)
