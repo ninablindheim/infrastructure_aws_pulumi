@@ -26,12 +26,3 @@ class TestingWithMocks(unittest.TestCase):
             assert ..., 'Template error message.'
 
         return pulumi.Output.all(infra).apply(check_template)
-
-    # Test intentional failure.
-    @pulumi.runtime.test
-    def test_intentional_fail(self) -> pulumi.Output:
-        def check_intentional_false(args: list) -> None:
-            _, = args
-            assert False, 'Intentional assertion failure.'
-
-        return pulumi.Output.all(infra).apply(check_intentional_false)
