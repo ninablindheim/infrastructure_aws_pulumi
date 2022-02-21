@@ -1,9 +1,15 @@
 import pulumi
 from pulumi_aws import s3
 
+STACK_NAME = 'Staging'
+REGION_NAME = 'us-east-1'
 BUCKET_NAME = 'my-portfolio-bucket'
+
 OUTPUT_KEY_BUCKET_NAME = 'bucket_name'
+
+CONFIG_KEY_REGION = 'aws:region'
 OUTPUT_KEY_REGION = 'region'
+
 INDEX_DOCUMENT = 'index.html'
 HTML_CONTENT = 'text/html'
 HTML_ACL = 'public-read'
