@@ -1,3 +1,3 @@
-from infra import create_bucket
+from infra import create_bucket_and_object
 
-bucket = create_bucket()
+bucket = create_bucket_and_object()

@@ -30,7 +30,7 @@ class TestingWithMocks(unittest.TestCase):
     # Test that the bucket URN matches the resource name of the bucket.
     @pulumi.runtime.test
     def test_bucket_urn_correctness(self) -> pulumi.Output:
-        bucket = infra.create_bucket()
+        bucket, _ = infra.create_bucket_and_object()
 
         def check_bucket_urn(args: list) -> None:
             urn, = args
@@ -42,10 +42,22 @@ class TestingWithMocks(unittest.TestCase):
     # Test that the bucket has a website property.
     @pulumi.runtime.test
     def test_bucket_website_property(self) -> pulumi.Output:
-        bucket = infra.create_bucket()
+        bucket, _ = infra.create_bucket_and_object()
 
         def check_website_property(args: list) -> None:
             website, = args
             assert website is not None
 
         return pulumi.Output.all(bucket.website).apply(check_website_property)
+
+    # Test that the website bucket object has content type HTML.
+    @pulumi.runtime.test
+    def test_website_content_type(self) -> pulumi.Output:
+        _, bucket_object = infra.create_bucket_and_object()
+
+        def check_website_content(args: list) -> None:
+            content_type, = args
+            assert content_type == infra.HTML_CONTENT
+
+        return pulumi.Output.all(bucket_object.content_type).apply(
+            check_website_content)
