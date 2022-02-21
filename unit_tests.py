@@ -18,15 +18,6 @@ import infra
 
 class TestingWithMocks(unittest.TestCase):
 
-    # Test template.
-    @pulumi.runtime.test
-    def test_template(self) -> pulumi.Output:
-        def check_template(args: list) -> None:
-            _, = args
-            assert ..., 'Template error message.'
-
-        return pulumi.Output.all(infra).apply(check_template)
-
     # Test that the bucket URN matches the resource name of the bucket.
     @pulumi.runtime.test
     def test_bucket_urn_correctness(self) -> pulumi.Output:
